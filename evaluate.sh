@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # shell script to make your evaluation quicker and save repetetive time
 # by Florian Keitel
