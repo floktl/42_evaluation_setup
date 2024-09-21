@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # shell script to make your evaluation quicker and save repetetive time
 # by Florian Keitel
@@ -14,8 +14,11 @@ PROJECT_NAME="$1"
 PERSON_NAME="$2"
 GIT_REPO="$3"
 NEW_FOLDER_NAME="$PERSON_NAME"_"$PROJECT_NAME"
-CLONE_DIR="$EVALUATIONS_DIR/$PROJECT_NAME"
-
+if [[ "$PROJECT_NAME" == CPP* ]]; then
+	CLONE_DIR="$EVALUATIONS_DIR/CPP/$PROJECT_NAME"
+else
+	CLONE_DIR="$EVALUATIONS_DIR/$PROJECT_NAME"
+fi
 # Function to clone repository
 clone_repository() {
 	cd "$CLONE_DIR"
@@ -26,12 +29,12 @@ clone_repository() {
 		exit 1
 	fi
     echo "Cloning repository $GIT_REPO into $CLONE_DIR"
-    git clone "$GIT_REPO" "$NEW_FOLDER_NAME"
+    git clone --depth 1 "$GIT_REPO" "$NEW_FOLDER_NAME"
 	if [ $? -ne 0 ]; then
         echo "Error: Cloning failed."
         exit 1
     fi
-	
+
 	# Open folder directly in VS Code
 	open_in_vscode "$CLONE_DIR"
 }
@@ -71,4 +74,6 @@ if [ "$#" -ne 3 ]; then
 fi
 
 main "$@"
+
+
 
