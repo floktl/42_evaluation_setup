@@ -47,7 +47,11 @@ This shell script (`evaluate`) is designed to reduce the process of setting up t
       	else
       		cd "$HOME/42_evaluation_setup"
       		./evaluate.sh "$1" "$2" "$3"
-      		local path="$HOME/Desktop/Evaluations/$1/$2""_$1"
+      		if [[ "$1" == CPP* ]]; then
+               local path="$HOME/Desktop/Evaluations/CPP/$1/$2""_$1"
+            else
+               local path="$HOME/Desktop/Evaluations/$1/$2""_$1"
+            fi
       		if [ -d "$path" ]; then
       			source "$path"
       		fi
